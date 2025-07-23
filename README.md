@@ -6,7 +6,7 @@ A robust RESTful API for managing tasks built with Node.js, Express.js, TypeScri
 
 - **Full CRUD Operations**: Create, Read, Update, and Delete tasks
 - **Task Statistics**: Get insights about your task data
-- **Data Validation**: Comprehensive input validation using Zod schemas
+- **Data Validation**: Comprehensive input validation using Joi
 - **Interactive Documentation**: Swagger UI for easy API exploration
 - **Type Safety**: Built with TypeScript for better code quality
 - **Security**: Helmet.js for security headers and CORS configuration
