@@ -1,19 +1,19 @@
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { Task, TaskStatus, CreateTaskRequest, UpdateTaskRequest } from '../models/task';
-import { 
-  getAllTasks, 
-  getTaskById, 
-  addTask, 
-  updateTask, 
-  deleteTask 
-} from '../utils/database';
+import {
+  getAllTasks,
+  getTaskById,
+  addTask,
+  updateTask,
+  deleteTask
+} from '../utils/database'; // database.ts is in utils now, adjust if your path is different
 
 // Create a new task
 export const createTask = async (req: Request, res: Response): Promise<void> => {
   try {
     const { title, description, status }: CreateTaskRequest = req.body;
-    
+
     const newTask: Task = {
       id: uuidv4(),
       title,
@@ -23,7 +23,7 @@ export const createTask = async (req: Request, res: Response): Promise<void> => 
       updatedAt: new Date()
     };
 
-    const createdTask = addTask(newTask);
+    const createdTask = await addTask(newTask); // Await the async function
 
     res.status(201).json({
       success: true,
@@ -52,7 +52,7 @@ export const getAllTasksController = async (req: Request, res: Response): Promis
     const pageNum = page ? parseInt(page) : undefined;
     const limitNum = limit ? parseInt(limit) : undefined;
 
-    const result = getAllTasks(pageNum, limitNum, status, search);
+    const result = await getAllTasks(pageNum, limitNum, status, search); // Await the async function
 
     res.status(200).json({
       success: true,
@@ -79,8 +79,8 @@ export const getAllTasksController = async (req: Request, res: Response): Promis
 export const getTaskByIdController = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-    
-    const task = getTaskById(id);
+
+    const task = await getTaskById(id); // Await the async function
 
     if (!task) {
       res.status(404).json({
@@ -110,7 +110,7 @@ export const updateTaskController = async (req: Request, res: Response): Promise
     const { id } = req.params;
     const updates: UpdateTaskRequest = req.body;
 
-    const updatedTask = updateTask(id, updates);
+    const updatedTask = await updateTask(id, updates); // Await the async function
 
     if (!updatedTask) {
       res.status(404).json({
@@ -139,7 +139,7 @@ export const deleteTaskController = async (req: Request, res: Response): Promise
   try {
     const { id } = req.params;
 
-    const deleted = deleteTask(id);
+    const deleted = await deleteTask(id); // Await the async function
 
     if (!deleted) {
       res.status(404).json({
@@ -162,11 +162,11 @@ export const deleteTaskController = async (req: Request, res: Response): Promise
   }
 };
 
-// Get task statistics 
+// Get task statistics
 export const getTaskStats = async (req: Request, res: Response): Promise<void> => {
   try {
-    const allTasks = getAllTasks();
-    const tasks = allTasks.tasks;
+    const allTasksResult = await getAllTasks(); // Await the async function to get all tasks
+    const tasks = allTasksResult.tasks;
 
     const stats = {
       total: tasks.length,

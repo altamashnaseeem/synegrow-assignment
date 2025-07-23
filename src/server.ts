@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import taskRoutes from "./routes/taskRoutes";
+import { initializeDatabase } from "./utils/database"; // Import the database initialization
 
 // Create Express application
 const app = express();
@@ -59,8 +60,18 @@ app.use(
 );
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Express server is running on http://localhost:${PORT}`);
-});
+const startServer = async () => {
+  try {
+    await initializeDatabase(); // Initialize the database before starting the server
+    app.listen(PORT, () => {
+      console.log(`Express server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1); // Exit if database connection fails
+  }
+};
+
+startServer(); // Call the async function to start the server
 
 export default app;
