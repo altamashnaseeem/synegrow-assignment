@@ -46,7 +46,7 @@ npm run dev
 
 ### Interactive Documentation
 
-* **Deployed Frontend :**  [https://mployee-frontend-tau.vercel.app/](http://localhost:5000/api-docs)
+* **Deployed Frontend :**  http://localhost:5000/api-docs
 - View all available endpoints
 - Test API calls directly from the browser
 - See request/response schemas
