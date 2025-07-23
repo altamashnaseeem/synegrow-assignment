@@ -44,10 +44,10 @@ npm run dev
 
 ## 📖 API Documentation
 
-### Interactive Documentation
+Interactive Documentation
 
 * **SWAGGER API Documentation :**  http://localhost:5000/api-docs
-- View all available endpoints
-- Test API calls directly from the browser
-- See request/response schemas
+* View all available endpoints
+* Test API calls directly from the browser
+* See request/response schemas
 
